@@ -8,6 +8,7 @@ import com.github.catvod.bean.Vod;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Json;
+import com.github.catvod.utils.Notify;
 import com.github.catvod.utils.Util;
 
 import org.json.JSONArray;
@@ -44,11 +45,12 @@ public class Douban extends Spider {
     public String homeContent(boolean filter) throws Exception {
         List<Class> classes = new ArrayList<>();
         List<String> typeIds = Arrays.asList("hot_gaia", "tv_hot", "show_hot", "movie", "tv", "rank_list_movie", "rank_list_tv");
-        List<String> typeNames = Arrays.asList("热门电影", "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
+        List<String> typeNames = Arrays.asList("关注码上放生公众号", "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
         for (int i = 0; i < typeIds.size(); i++) classes.add(new Class(typeIds.get(i), typeNames.get(i)));
         String recommendUrl = "http://api.douban.com/api/v2/subject_collection/subject_real_time_hotest/items" + apikey;
         JSONObject jsonObject = new JSONObject(OkHttp.string(recommendUrl, getHeader()));
         JSONArray items = jsonObject.optJSONArray("subject_collection_items");
+        Notify.show("插兜的干货仓库: 关注「码上放生」公众号");
         return Result.string(classes, parseVodListFromJSONArray(items), filter ? Json.parse(OkHttp.string(extend)) : null);
     }
 
