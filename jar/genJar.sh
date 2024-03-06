@@ -26,9 +26,9 @@ java -jar ./3rd/apktool_2.4.1.jar b ./spider.jar -c
 
 timestamp=$(date +%Y%m%d-%H%M%S)
 
-mv ./spider.jar/dist/dex.jar ./custom_spider_$timestamp.jar
+mv ./spider.jar/dist/dex.jar ./custom_spider
 
-md5 -q ./custom_spider_$timestamp.jar > ./custom_spider_$timestamp.jar.md5
+md5 -q ./custom_spider > ./custom_spider.md5
 
 # 删除 spider.jar 中的 com/github/catvod/spider 和 com/github/catvod/parser 目录
 rm -rf ./spider.jar/smali/com/github/catvod/spider
