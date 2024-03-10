@@ -1,6 +1,8 @@
-rm -rf ./custom_spider.jar
+timestamp=$(date +%Y%m%d-%H%M%S)
 
+rm -rf ./custom_spider
 rm -rf ./Smali_classes
+rm -rf ./custom_spider_*
 
 java -jar ./3rd/baksmali-2.5.2.jar d ../app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex -o ./Smali_classes
 
@@ -24,16 +26,16 @@ rm -rf ./Smali_classes
 
 java -jar ./3rd/apktool_2.4.1.jar b ./spider.jar -c
 
-timestamp=$(date +%Y%m%d-%H%M%S)
+mv ./spider.jar/dist/dex.jar ./custom_spider_$timestamp.tms
 
-mv ./spider.jar/dist/dex.jar ./custom_spider
-
-md5 -q ./custom_spider > ./custom_spider.md5
+md5 -q ./custom_spider_$timestamp.tms > ./custom_spider_$timestamp.md5
 
 # 删除 spider.jar 中的 com/github/catvod/spider 和 com/github/catvod/parser 目录
 rm -rf ./spider.jar/smali/com/github/catvod/spider
 rm -rf ./spider.jar/smali/com/github/catvod/parser
-
-# 删除 spider.jar 中的 build 和 dist 目录
+rm -rf ./spider.jar/smali/com/github/catvod/js
 rm -rf ./spider.jar/build
 rm -rf ./spider.jar/dist
+
+# 复制到时光机工程中
+cp ./custom_spider_* /Users/bestpvp/Documents/GitHub/lintech/docs/tvbox/jar/

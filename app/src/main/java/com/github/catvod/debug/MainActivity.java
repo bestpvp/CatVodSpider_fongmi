@@ -8,6 +8,8 @@ import com.github.catvod.R;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.spider.Init;
 import com.github.catvod.spider.Wogg;
+import com.github.catvod.spider.Douban;
+import com.github.catvod.spider.Live2Vod;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -46,8 +48,13 @@ public class MainActivity extends Activity {
     private void initSpider() {
         try {
             Init.init(getApplicationContext());
-            spider = new Wogg();
-            spider.init(this, "");
+            //豆瓣
+            spider = new Douban();
+            spider.init(this, "https://raw.githubusercontent.com/zhixc/CatVodTVSpider/main/other/json/douban.json");
+
+            //Live2Vod
+//            spider = new Live2Vod();
+//            spider.init(this, "南风$https://agit.ai/Yoursmile7/TVBox/raw/branch/master/live.txt#饭太硬$https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt&&&https://img1.dd.ci/file/08b8a048adf5d333c6030.png");
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -71,7 +78,11 @@ public class MainActivity extends Activity {
 
     public void categoryContent() {
         try {
-            Logger.t("categoryContent").d(spider.categoryContent("movie", "1", true, new HashMap<>()));
+            //douban
+            String tid = "hot_gaia";
+            //Live2Vod
+//            String tid = "{\"circuit\":\"\",\"pic\":\"https://cdn.jsdelivr.net/gh/zhixc/CatVodTVSpider@main/other/pic/live.png\",\"url\":\"https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt\",\"group\":\"1\"}";
+            Logger.t("categoryContent").d(spider.categoryContent(tid, "1", true, new HashMap<>()));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -79,7 +90,9 @@ public class MainActivity extends Activity {
 
     public void detailContent() {
         try {
-            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
+            String s = "{\"vod_play_url\":\"CCTV1$https://cntv.sbs/live?auth=230601&id=cctv1\",\"pic\":\"https://live.fanmingming.com/tv/CCTV1.png\"}";
+            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -87,7 +100,9 @@ public class MainActivity extends Activity {
 
     public void playerContent() {
         try {
-            Logger.t("playerContent").d(spider.playerContent("轉存原畫", "kahf2rw5Uuk+652f55f6943ee2f75d8e4fa590b4ec65fd007f8c", new ArrayList<>()));
+            String flag = "test";
+            String id = "https://cntv.sbs/live?auth=230601&id=cctv1";
+            Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
         } catch (Throwable e) {
             e.printStackTrace();
         }

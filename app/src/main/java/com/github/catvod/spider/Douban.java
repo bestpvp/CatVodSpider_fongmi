@@ -1,6 +1,7 @@
 package com.github.catvod.spider;
 
 import android.content.Context;
+import android.app.AlertDialog;
 
 import com.github.catvod.bean.Class;
 import com.github.catvod.bean.Result;
@@ -10,6 +11,7 @@ import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Json;
 import com.github.catvod.utils.Notify;
 import com.github.catvod.utils.Util;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +28,7 @@ public class Douban extends Spider {
     private final String siteUrl = "https://frodo.douban.com/api/v2";
     private final String apikey = "?apikey=0ac44ae016490db2204ce0a042db2916";
     private String extend;
+    private AlertDialog dialog;
 
     private Map<String, String> getHeader() {
         Map<String, String> header = new HashMap<>();
@@ -38,19 +41,20 @@ public class Douban extends Spider {
 
     @Override
     public void init(Context context, String extend) throws Exception {
-        this.extend = extend;
+//        this.extend = extend;
+        this.extend = "https://raw.gitmirror.com/zhixc/CatVodTVSpider/main/other/json/douban.json";
     }
 
     @Override
     public String homeContent(boolean filter) throws Exception {
         List<Class> classes = new ArrayList<>();
         List<String> typeIds = Arrays.asList("hot_gaia", "tv_hot", "show_hot", "movie", "tv", "rank_list_movie", "rank_list_tv");
-        List<String> typeNames = Arrays.asList("关注码上放生公众号", "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
+        List<String> typeNames = Arrays.asList("插兜的干货仓库", "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
         for (int i = 0; i < typeIds.size(); i++) classes.add(new Class(typeIds.get(i), typeNames.get(i)));
         String recommendUrl = "http://api.douban.com/api/v2/subject_collection/subject_real_time_hotest/items" + apikey;
         JSONObject jsonObject = new JSONObject(OkHttp.string(recommendUrl, getHeader()));
         JSONArray items = jsonObject.optJSONArray("subject_collection_items");
-        Notify.show("插兜的干货仓库: 关注「码上放生」公众号");
+        Notify.show("感谢使用时光机数据源");
         return Result.string(classes, parseVodListFromJSONArray(items), filter ? Json.parse(OkHttp.string(extend)) : null);
     }
 
@@ -117,7 +121,7 @@ public class Douban extends Spider {
 
     private String getRating(JSONObject item) {
         try {
-            return "评分：" + item.getJSONObject("rating").optString("value");
+            return "推荐评分：" + item.getJSONObject("rating").optString("value");
         } catch (Exception e) {
             return "";
         }
@@ -127,7 +131,7 @@ public class Douban extends Spider {
         try {
             return item.getJSONObject("pic").optString("normal") + "@Referer=https://api.douban.com/@User-Agent=" + Util.CHROME;
         } catch (Exception e) {
-            return "";
+            return "https://img2.imgtp.com/2024/03/10/yL3SWeeO.png";
         }
     }
 
