@@ -6,7 +6,11 @@ import android.widget.Button;
 
 import com.github.catvod.R;
 import com.github.catvod.crawler.Spider;
+import com.github.catvod.spider.AList;
+import com.github.catvod.spider.Ali;
+import com.github.catvod.spider.Dm84;
 import com.github.catvod.spider.Init;
+import com.github.catvod.spider.Push;
 import com.github.catvod.spider.Wogg;
 import com.github.catvod.spider.Douban;
 import com.github.catvod.spider.Live2Vod;
@@ -49,12 +53,20 @@ public class MainActivity extends Activity {
         try {
             Init.init(getApplicationContext());
             //豆瓣
-            spider = new Douban();
-            spider.init(this, "https://raw.githubusercontent.com/zhixc/CatVodTVSpider/main/other/json/douban.json");
+//            spider = new Douban();
+//            spider.init(this, "https://raw.githubusercontent.com/zhixc/CatVodTVSpider/main/other/json/douban.json");
 
             //Live2Vod
 //            spider = new Live2Vod();
 //            spider.init(this, "南风$https://agit.ai/Yoursmile7/TVBox/raw/branch/master/live.txt#饭太硬$https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt&&&https://img1.dd.ci/file/08b8a048adf5d333c6030.png");
+
+            //Push
+//            spider = new Push();
+//            spider.init(this, "https://www.aliyundrive.com/s/ZuJK794e1jm");
+
+            spider = new Dm84();
+            spider.init(this, "");
+
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -79,9 +91,13 @@ public class MainActivity extends Activity {
     public void categoryContent() {
         try {
             //douban
-            String tid = "hot_gaia";
+//            String tid = "hot_gaia";
             //Live2Vod
 //            String tid = "{\"circuit\":\"\",\"pic\":\"https://cdn.jsdelivr.net/gh/zhixc/CatVodTVSpider@main/other/pic/live.png\",\"url\":\"https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt\",\"group\":\"1\"}";
+            //Dm84
+            String tid = "2";
+
+
             Logger.t("categoryContent").d(spider.categoryContent(tid, "1", true, new HashMap<>()));
         } catch (Throwable e) {
             e.printStackTrace();
@@ -90,9 +106,15 @@ public class MainActivity extends Activity {
 
     public void detailContent() {
         try {
-            String s = "{\"vod_play_url\":\"CCTV1$https://cntv.sbs/live?auth=230601&id=cctv1\",\"pic\":\"https://live.fanmingming.com/tv/CCTV1.png\"}";
-            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+            //Live2Vod
+//            String s = "{\"vod_play_url\":\"CCTV1$https://cntv.sbs/live?auth=230601&id=cctv1\",\"pic\":\"https://live.fanmingming.com/tv/CCTV1.png\"}";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
 //            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
+
+            //Dm84
+            String s = "4587.html";
+            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
         } catch (Throwable e) {
             e.printStackTrace();
         }
