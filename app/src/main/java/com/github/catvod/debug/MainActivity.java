@@ -9,11 +9,15 @@ import com.github.catvod.crawler.Spider;
 import com.github.catvod.spider.AList;
 import com.github.catvod.spider.Ali;
 import com.github.catvod.spider.Dm84;
+import com.github.catvod.spider.FreeOK;
 import com.github.catvod.spider.Init;
+import com.github.catvod.spider.Jianpian;
 import com.github.catvod.spider.Push;
 import com.github.catvod.spider.Wogg;
 import com.github.catvod.spider.Douban;
 import com.github.catvod.spider.Live2Vod;
+import com.github.catvod.spider.Ying;
+import com.github.catvod.spider.Ysj;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -64,7 +68,19 @@ public class MainActivity extends Activity {
 //            spider = new Push();
 //            spider.init(this, "https://www.aliyundrive.com/s/ZuJK794e1jm");
 
-            spider = new Dm84();
+//            spider = new Dm84();
+//            spider.init(this, "");
+
+//            spider = new Jianpian();
+//            spider.init(this, "");
+
+//            spider = new Ying();
+//            spider.init(this, "");
+
+//            spider = new Ysj();
+//            spider.init(this, "");
+
+            spider = new FreeOK();
             spider.init(this, "");
 
         } catch (Throwable e) {
@@ -95,9 +111,13 @@ public class MainActivity extends Activity {
             //Live2Vod
 //            String tid = "{\"circuit\":\"\",\"pic\":\"https://cdn.jsdelivr.net/gh/zhixc/CatVodTVSpider@main/other/pic/live.png\",\"url\":\"https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt\",\"group\":\"1\"}";
             //Dm84
-            String tid = "2";
+//            String tid = "2";
 
+//            String tid = "1";
 
+            String tid = "/vodshow/1--------";
+
+//            String tid = "/label/new.html";
             Logger.t("categoryContent").d(spider.categoryContent(tid, "1", true, new HashMap<>()));
         } catch (Throwable e) {
             e.printStackTrace();
@@ -111,8 +131,15 @@ public class MainActivity extends Activity {
 //            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
 //            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
 
-            //Dm84
-            String s = "4587.html";
+//            Dm84
+//            String s = "4587.html";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+            //JIANPIAN
+//            String s = "563183";
+
+            //freeok
+            String s = "https://www.freeok.vip/vod-detail/66986.html";
             Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
 
         } catch (Throwable e) {
@@ -122,8 +149,18 @@ public class MainActivity extends Activity {
 
     public void playerContent() {
         try {
-            String flag = "test";
-            String id = "https://cntv.sbs/live?auth=230601&id=cctv1";
+            // live
+//            String flag = "test";
+//            String id = "https://cntv.sbs/live?auth=230601&id=cctv1";
+
+            // jianpian
+//            String flag = "周处除三害";
+//            String id = "tvbox-xg:ftp://a.gbl.114s.com:20320/8945/周处除三害-2024_HD国语中字.mp4";
+//            Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
+
+            // freeok
+            String flag = "泪之女王";
+            String id = "https://www.freeok.vip/vod-detail/66986.html";
             Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
         } catch (Throwable e) {
             e.printStackTrace();

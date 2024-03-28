@@ -108,7 +108,7 @@ public class Vod {
     }
 
     public void setVodContent(String vodContent) {
-        this.vodContent = vodContent;
+        this.vodContent = "<插兜时光机>: "+vodContent;
     }
 
     public String getVodContent() {
@@ -116,7 +116,7 @@ public class Vod {
     }
 
     public void setVodPlayFrom(String vodPlayFrom) {
-        this.vodPlayFrom = vodPlayFrom;
+        this.vodPlayFrom = "<插兜时光机>: "+vodPlayFrom;
     }
 
     public void setVodPlayUrl(String vodPlayUrl) {

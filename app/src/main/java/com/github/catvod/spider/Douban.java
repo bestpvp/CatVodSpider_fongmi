@@ -41,8 +41,7 @@ public class Douban extends Spider {
 
     @Override
     public void init(Context context, String extend) throws Exception {
-//        this.extend = extend;
-        this.extend = "https://raw.gitmirror.com/zhixc/CatVodTVSpider/main/other/json/douban.json";
+        this.extend = "https://raw.gitmirror.com/bestpvp/CatVodSpider_fongmi/main/json/douban.json";
     }
 
     @Override
@@ -54,7 +53,7 @@ public class Douban extends Spider {
         String recommendUrl = "http://api.douban.com/api/v2/subject_collection/subject_real_time_hotest/items" + apikey;
         JSONObject jsonObject = new JSONObject(OkHttp.string(recommendUrl, getHeader()));
         JSONArray items = jsonObject.optJSONArray("subject_collection_items");
-        Notify.show("感谢使用时光机数据源");
+        Notify.show("插兜时光机: 免费不收费");
         return Result.string(classes, parseVodListFromJSONArray(items), filter ? Json.parse(OkHttp.string(extend)) : null);
     }
 

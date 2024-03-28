@@ -65,8 +65,11 @@ public class Ying extends Spider {
         for (int i = 0; i < split.length; i++) {
             if (split[i].startsWith("[")) {
                 split[i] = split[i].substring(0, split[i].indexOf(";")).replace("[", "").replace("]", "").replace("\"", "");
-                if (split[i].startsWith("region")) addClasses(classes, split[i].split(","));
-                else array.add(getFilter(split[i].split(",")));
+                if (split[i].startsWith("region")) {
+                    addClasses(classes, split[i].replace("全部", "插兜的干货仓库").split(","));
+                } else {
+                    array.add(getFilter(split[i].split(",")));
+                }
             }
         }
         for (Class type : classes) filters.put(type.getTypeId(), array);

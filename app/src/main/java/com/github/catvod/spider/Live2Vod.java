@@ -393,7 +393,7 @@ public class Live2Vod extends Spider {
         JSONObject videoInfoObj = new JSONObject(ids.get(0));
         String vod_play_url = videoInfoObj.getString("vod_play_url");
         String pic = videoInfoObj.getString("pic");
-        String vod_play_from = "插兜的干货仓库";  // 线路 / 播放源标题
+        String vod_play_from = "时光机直播";  // 线路 / 播放源标题
         String vodPlayFrom = videoInfoObj.optString("vod_play_from");
         if (!vodPlayFrom.equals("")) vod_play_from = vodPlayFrom;
 
