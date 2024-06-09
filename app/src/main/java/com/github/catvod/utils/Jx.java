@@ -98,7 +98,7 @@ public class Jx {
             String result = contentBuilder.toString().trim();
             if (result.isEmpty()){
                 System.out.println("JAR - 内容为空, 请配置: "+ realPath);
-                Notify.show("JAR - 内容为空, 请配置: "+ realPath);
+//                Notify.show("JAR - 内容为空, 请配置: "+ realPath);
                 return "";
             }
             Prefers.put("jxToken", result);

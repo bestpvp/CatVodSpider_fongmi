@@ -82,8 +82,11 @@ public class MainActivity extends Activity {
         try {
             Init.init(getApplicationContext());
 
-            spider = new Douban();
-            spider.init(this, "");
+//            spider = new Douban();
+//            spider.init(this, "");
+
+//            spider = new Kanqiu();
+//            spider.init(this, "");
 
 //            Live2Vod
 //            spider = new Live2Vod();
@@ -112,9 +115,9 @@ public class MainActivity extends Activity {
 //            spider = new SixV();
 //            spider.init(this, "https://www.66ss.org/");
 
-//            String extend = "{\"siteUrl\":\"https://www.rarbt.fun\",\"jxToken\":\"tm://tm/jxToken.txt\"}";
-//            spider = new Rarbt();
-//            spider.init(this,extend);
+            String extend = "{\"siteUrl\":\"https://www.rarbt.fun\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
+            spider = new Rarbt();
+            spider.init(this,extend);
 
 //            spider = new DyGang();
 //            spider.init(this,"");
@@ -122,7 +125,7 @@ public class MainActivity extends Activity {
 //            spider = new Xunlei8();
 //            spider.init(this,"");
 
-//            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\"}";
+//            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
 //            spider = new Voflix();
 //            spider.init(this, extend);
 
@@ -244,12 +247,12 @@ public class MainActivity extends Activity {
 //            String id = "https://www.rarbt.fun/DR/Ua7j-1-1.html";
 
             // Voflix
-//            String flag = "第1期";
-//            String id = "/play/94490-4-1.html";
+            String flag = "第1期";
+            String id = "/play/94490-4-1.html";
 
             //ying
-            String flag = "1";
-            String id = "/vp/23448-1-3.html";
+//            String flag = "1";
+//            String id = "/vp/23448-1-3.html";
 
             Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
         } catch (Throwable e) {

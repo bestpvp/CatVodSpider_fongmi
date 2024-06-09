@@ -42,6 +42,8 @@ public class Voflix extends Spider {
 
     private static String siteUrl = "";
 
+    private static boolean enableJX = true;
+
     private String jxToken;
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36";
 
@@ -124,6 +126,7 @@ public class Voflix extends Spider {
         JSONObject extendJson = new JSONObject(extend);
         if (siteUrl.isEmpty()) siteUrl = extendJson.getString("siteUrl");
         String jxTokenPath = extendJson.getString("jxToken");
+        enableJX = extendJson.getBoolean("enableJX");
         if (jxTokenPath.isEmpty()) {
             jxToken = Prefers.getString("jxToken");
         } else if (jxTokenPath.startsWith("tm://")) {
@@ -309,11 +312,13 @@ public class Voflix extends Spider {
         String playerConfigStr = find(Pattern.compile("player_aaaa=(.*?)</script>"), html);
         String realPlayUrl = new JSONObject(playerConfigStr).optString("url");
         if (realPlayUrl.contains(".m3u8") || realPlayUrl.contains(".mp4")) {
-            jxToken = Prefers.getString("jxToken");
-            if (!jxToken.isEmpty()){
-                realPlayUrl = Jx.getUrl(jxToken, realPlayUrl);
-            } else {
-                Notify.show(Tag.jxBlankMsg());
+            if (enableJX) {
+                jxToken = Prefers.getString("jxToken");
+                if (!jxToken.isEmpty()){
+                    realPlayUrl = Jx.getUrl(jxToken, realPlayUrl);
+                } else {
+                    Notify.show(Tag.jxBlankMsg());
+                }
             }
             JSONObject result = new JSONObject();
             result.put("parse", 0);

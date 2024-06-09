@@ -37,6 +37,8 @@ public class Rarbt extends Spider {
 
     private static String siteUrl = "";
 
+    private static boolean enableJX = true;
+
     private final Pattern regexCategory = Pattern.compile("/type/(\\w+).html");
     private final Pattern regexPageTotal = Pattern.compile("\\$\\(\"\\.mac_total\"\\)\\.text\\('(\\d+)'\\);");
 
@@ -56,6 +58,7 @@ public class Rarbt extends Spider {
         org.json.JSONObject extendJson = new org.json.JSONObject(extend);
         if (siteUrl.isEmpty()) siteUrl = extendJson.getString("siteUrl");
         String jxTokenPath = extendJson.getString("jxToken");
+        enableJX = extendJson.getBoolean("enableJX");
         if (jxTokenPath.isEmpty()) {
             jxToken = Prefers.getString("jxToken");
         } else if (jxTokenPath.startsWith("tm://")) {
@@ -211,11 +214,13 @@ public class Rarbt extends Spider {
             String realPlayUrl;
             realPlayUrl = midUrl.startsWith("/")?siteUrl + midUrl: midUrl;
 //            realPlayUrl = "https://cdn15.yzzy-kb-cdn.com/20230719/19748_c2c82adf/2000k/hls/index.m3u8";
-            jxToken = Prefers.getString("jxToken");
-            if (!jxToken.isEmpty()){
-                realPlayUrl = Jx.getUrl(jxToken, realPlayUrl);
-            } else {
-                Notify.show(Tag.jxBlankMsg());
+            if (enableJX) {
+                jxToken = Prefers.getString("jxToken");
+                if (!jxToken.isEmpty()){
+                    realPlayUrl = Jx.getUrl(jxToken, realPlayUrl);
+                } else {
+                    Notify.show(Tag.jxBlankMsg());
+                }
             }
             return Result.get().url(realPlayUrl).header(getHeader()).string();
         }
