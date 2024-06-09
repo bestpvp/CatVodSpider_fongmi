@@ -18,6 +18,8 @@ import com.github.catvod.spider.Douban;
 import com.github.catvod.spider.Live2Vod;
 import com.github.catvod.spider.Ying;
 import com.github.catvod.spider.Ysj;
+import com.github.catvod.spider.Doll;
+import com.github.catvod.spider.Init;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
