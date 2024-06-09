@@ -3,6 +3,8 @@ package com.github.catvod.bean;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import com.github.catvod.utils.Tag;
+
 public class Vod {
 
     @SerializedName("type_name")
@@ -108,7 +110,7 @@ public class Vod {
     }
 
     public void setVodContent(String vodContent) {
-        this.vodContent = vodContent;
+        this.vodContent = Tag.prefixMsg()+vodContent;
     }
 
     public String getVodContent() {
@@ -116,11 +118,11 @@ public class Vod {
     }
 
     public void setVodPlayFrom(String vodPlayFrom) {
-        this.vodPlayFrom = vodPlayFrom;
+        this.vodPlayFrom = Tag.prefixMsg()+vodPlayFrom;
     }
 
     public void setVodPlayUrl(String vodPlayUrl) {
-        this.vodPlayUrl = vodPlayUrl;
+        this.vodPlayUrl = Tag.prefixMsg()+vodPlayUrl;
     }
 
     public String getVodPlayUrl() {

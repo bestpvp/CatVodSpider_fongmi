@@ -11,6 +11,7 @@ import com.github.catvod.bean.jianpian.Resp;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Json;
+import com.github.catvod.utils.Tag;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -36,14 +37,14 @@ public class Jianpian extends Spider {
 
     @Override
     public void init(Context context, String extend) throws Exception {
-        this.extend = extend;
+        this.extend = "https://raw.gitmirror.com/bestpvp/CatVodSpider_fongmi/main/json/jianpian.json";
     }
 
     @Override
     public String homeContent(boolean filter) throws Exception {
         List<Class> classes = new ArrayList<>();
         List<String> typeIds = Arrays.asList("0", "1", "2", "3", "4");
-        List<String> typeNames = Arrays.asList("全部", "电影", "电视剧", "动漫", "综艺");
+        List<String> typeNames = Arrays.asList(Tag.categoryMsg(), "电影", "电视剧", "动漫", "综艺");
         for (int i = 0; i < typeIds.size(); i++) classes.add(new Class(typeIds.get(i), typeNames.get(i)));
         return Result.string(classes, Json.parse(OkHttp.string(extend)));
     }

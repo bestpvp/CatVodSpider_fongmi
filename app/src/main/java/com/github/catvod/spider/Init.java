@@ -9,7 +9,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.github.catvod.api.AliYun;
 import com.github.catvod.crawler.SpiderDebug;
+import com.github.catvod.utils.Notify;
+import com.github.catvod.utils.Tag;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -41,7 +44,8 @@ public class Init {
 
     public static void init(Context context) {
         get().app = ((Application) context);
-        SpiderDebug.log("自定義爬蟲代碼載入成功！");
+        Notify.show(Tag.notifyMsg());
+        SpiderDebug.log(Tag.notifyMsg());
     }
 
     public static void execute(Runnable runnable) {

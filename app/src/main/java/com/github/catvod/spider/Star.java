@@ -66,6 +66,8 @@ public class Star extends Spider {
         LinkedHashMap<String, List<Filter>> filters = new LinkedHashMap<>();
         for (Map.Entry<String, String> entry : map.entrySet()) classes.add(new Class(entry.getKey(), entry.getValue()));
         for (Class type : classes) {
+            System.out.println(siteUrl + type.getTypeId() + "/all/all/all");
+            System.out.println(Jsoup.parse(OkHttp.string(siteUrl + type.getTypeId() + "/all/all/all", getHeader())));
             Element script = Jsoup.parse(OkHttp.string(siteUrl + type.getTypeId() + "/all/all/all", getHeader())).select("#__NEXT_DATA__").get(0);
             JSONObject obj = new JSONObject(script.data()).getJSONObject("props").getJSONObject("pageProps").getJSONObject("filterCondition");
             Condition item = Condition.objectFrom(obj.toString());

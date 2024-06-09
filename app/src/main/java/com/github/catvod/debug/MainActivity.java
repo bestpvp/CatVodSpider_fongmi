@@ -1,13 +1,35 @@
 package com.github.catvod.debug;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.catvod.R;
 import com.github.catvod.crawler.Spider;
-import com.github.catvod.spider.Doll;
+import com.github.catvod.spider.AList;
+import com.github.catvod.spider.Ali;
+import com.github.catvod.spider.AppYsV2;
+import com.github.catvod.spider.Dm84;
+import com.github.catvod.spider.DyGang;
+import com.github.catvod.spider.FreeOK;
 import com.github.catvod.spider.Init;
+import com.github.catvod.spider.Jianpian;
+import com.github.catvod.spider.JustLive;
+import com.github.catvod.spider.Kanqiu;
+import com.github.catvod.spider.NiNi;
+import com.github.catvod.spider.Push;
+import com.github.catvod.spider.Rarbt;
+import com.github.catvod.spider.SixV;
+import com.github.catvod.spider.Star;
+import com.github.catvod.spider.Voflix;
+import com.github.catvod.spider.Wogg;
+import com.github.catvod.spider.Douban;
+import com.github.catvod.spider.Live2Vod;
+import com.github.catvod.spider.Xunlei8;
+import com.github.catvod.spider.Ying;
+import com.github.catvod.spider.Ysj;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -25,6 +47,19 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        // Show the dialog before setting up the layout
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Welcome to CatVod!");
+//        builder.setMessage("This is a sample application for CatVod.");
+//        builder.setCancelable(false); // Make the dialog non-cancelable
+//        builder.setPositiveButton("OK", (dialog, which) -> {
+//            // Proceed with activity setup after the dialog is dismissed
+//            setContentView(R.layout.activity_main);
+//            // ... (rest of the code remains the same)
+//        });
+//        builder.show();
+
         setContentView(R.layout.activity_main);
         Button homeContent = findViewById(R.id.homeContent);
         Button homeVideoContent = findViewById(R.id.homeVideoContent);
@@ -46,8 +81,64 @@ public class MainActivity extends Activity {
     private void initSpider() {
         try {
             Init.init(getApplicationContext());
-            spider = new Doll();
+
+            spider = new Douban();
             spider.init(this, "");
+
+//            Live2Vod
+//            spider = new Live2Vod();
+//            spider.init(this, "./sites/码上/remote_live.json");
+//            spider.init(this, "南风$https://agit.ai/Yoursmile7/TVBox/raw/branch/master/live.txt#饭太硬$https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt&&&https://img1.dd.ci/file/08b8a048adf5d333c6030.png");
+
+            //Push
+//            spider = new Push();
+//            spider.init(this, "https://www.aliyundrive.com/s/ZuJK794e1jm");
+
+//            spider = new Dm84();
+//            spider.init(this, "");
+
+//            spider = new Jianpian();
+//            spider.init(this, "");
+
+//            spider = new Ying();
+//            spider.init(this, "");
+
+//            spider = new Ysj();
+//            spider.init(this, "");
+
+//            spider = new FreeOK();
+//            spider.init(this, "");
+
+//            spider = new SixV();
+//            spider.init(this, "https://www.66ss.org/");
+
+//            String extend = "{\"siteUrl\":\"https://www.rarbt.fun\",\"jxToken\":\"tm://tm/jxToken.txt\"}";
+//            spider = new Rarbt();
+//            spider.init(this,extend);
+
+//            spider = new DyGang();
+//            spider.init(this,"");
+
+//            spider = new Xunlei8();
+//            spider.init(this,"");
+
+//            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\"}";
+//            spider = new Voflix();
+//            spider.init(this, extend);
+
+//            spider = new Star();
+//            spider.init(this, "");
+
+//            spider = new Kanqiu();
+//            spider.init(this, "");
+//
+//            spider = new JustLive();
+//            spider.init(this, "");
+
+
+//            spider = new NiNi();
+//            spider.init(this, "");
+
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -71,7 +162,26 @@ public class MainActivity extends Activity {
 
     public void categoryContent() {
         try {
-            Logger.t("categoryContent").d(spider.categoryContent("movie", "1", true, new HashMap<>()));
+            //douban
+//            String tid = "hot_gaia";
+            //Live2Vod
+//            String tid = "{\"circuit\":\"\",\"pic\":\"https://cdn.jsdelivr.net/gh/zhixc/CatVodTVSpider@main/other/pic/live.png\",\"url\":\"https://agit.ai/fantaiying/0/raw/branch/main/tvlive.txt\",\"group\":\"1\"}";
+            //Dm84
+//            String tid = "2";
+
+//            String tid = "1";
+
+//            String tid = "/vodshow/1--------";
+
+//            String tid = "/label/new.html";
+
+//            String tid = "dongzuopian";
+
+//            String tid = "movie";
+
+//            String tid = "my_dianying";
+            String tid = "1";
+            Logger.t("categoryContent").d(spider.categoryContent(tid, "1", true, new HashMap<>()));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -79,7 +189,37 @@ public class MainActivity extends Activity {
 
     public void detailContent() {
         try {
-            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
+            //Live2Vod
+//            String s = "{\"vod_play_url\":\"CCTV1$https://cntv.sbs/live?auth=230601&id=cctv1\",\"pic\":\"https://live.fanmingming.com/tv/CCTV1.png\"}";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList("2121173431")));
+
+//            Dm84
+//            String s = "4587.html";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+            //JIANPIAN
+//            String s = "563183";
+
+            //freeok
+//            String s = "https://www.freeok.vip/vod-detail/66986.html";
+
+//            String s = "/dongzuopian/23266.html";
+
+//            String s = "/movie/Ua7j.html";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+//            String s = "/ys/20240404/54346.htm";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+            // Voflix
+//            String s = "/detail/173629.html";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+            //ying
+            String s = "23448.html";
+            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -87,7 +227,31 @@ public class MainActivity extends Activity {
 
     public void playerContent() {
         try {
-            Logger.t("playerContent").d(spider.playerContent("轉存原畫", "kahf2rw5Uuk+652f55f6943ee2f75d8e4fa590b4ec65fd007f8c", new ArrayList<>()));
+            // live
+//            String flag = "test";
+//            String id = "https://cntv.sbs/live?auth=230601&id=cctv1";
+
+            // jianpian
+//            String flag = "周处除三害";
+//            String id = "tvbox-xg:ftp://a.gbl.114s.com:20320/8945/周处除三害-2024_HD国语中字.mp4";
+//            Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
+
+            // freeok
+//            String flag = "泪之女王";
+//            String id = "https://www.freeok.vip/vod-detail/66986.html";
+
+//            String flag = "阿迪普鲁什";
+//            String id = "https://www.rarbt.fun/DR/Ua7j-1-1.html";
+
+            // Voflix
+//            String flag = "第1期";
+//            String id = "/play/94490-4-1.html";
+
+            //ying
+            String flag = "1";
+            String id = "/vp/23448-1-3.html";
+
+            Logger.t("playerContent").d(spider.playerContent(flag, id, new ArrayList<>()));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -95,7 +259,7 @@ public class MainActivity extends Activity {
 
     public void searchContent() {
         try {
-            Logger.t("searchContent").d(spider.searchContent("我的人间烟火", false));
+            Logger.t("searchContent").d(spider.searchContent("慕尼黑", false));
         } catch (Throwable e) {
             e.printStackTrace();
         }

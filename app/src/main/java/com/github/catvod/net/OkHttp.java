@@ -89,7 +89,7 @@ public class OkHttp {
         return new OkHttpClient.Builder().dns(safeDns()).connectTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).hostnameVerifier((hostname, session) -> true).sslSocketFactory(new SSLCompat(), SSLCompat.TM);
     }
 
-    private static OkHttpClient client() {
+    public static OkHttpClient client() {
         try {
             return Objects.requireNonNull(Spider.client());
         } catch (Throwable e) {

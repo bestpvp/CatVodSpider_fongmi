@@ -23,6 +23,7 @@ android {
                 maxLineLength 3
                 linesCountInDictionary 100000
             }
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -49,4 +50,5 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'com.alibaba:fastjson:1.2.75'
 }
