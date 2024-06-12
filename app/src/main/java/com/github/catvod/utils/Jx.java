@@ -15,7 +15,7 @@ public class Jx {
 
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36";
 
-    private static final String jxUrl = "https://www.bestpvp.site/api/m3u8/parse?token=%s&url=%s";
+//    private static final String jxUrl = "https://www.bestpvp.site/api/m3u8/parse?token=%s&url=%s";
 
     private static final String configUrl = "https://gitee.com/bestpvp/config/raw/master/config/unify.json";
 
@@ -26,6 +26,9 @@ public class Jx {
     }
     public static String getUrl(String jxToken, String realPlayUrl) {
         try {
+            String jxUrl = Prefers.getString("jxUrl");
+            System.out.println("JAR - jxUrl: "+jxUrl);
+            if (jxUrl.isEmpty()) return realPlayUrl;
             System.out.println("JAR - originalUrl: "+realPlayUrl);
             System.out.println("JAR - jxToken: "+jxToken);
             String response = OkHttp.string(String.format(jxUrl, jxToken, realPlayUrl), getHeader());
@@ -138,7 +141,7 @@ public class Jx {
             String current_jar_password = Prefers.getString("jar_password");
             String last_universal_password = object.getString("universal_password");
             String current_universal_password = Prefers.getString("universal_password");
-            // 如果当前密码为空，或者当前密码和最新密码不一致
+            // 如果当前密码为空，或者当前密码和最新密码不一致，包括超级密钥
             if (current_jar_password.isEmpty() || !current_jar_password.equalsIgnoreCase(last_jar_password) || !current_universal_password.equalsIgnoreCase(last_universal_password)){
                 String extMsg = "";
                 if (object.containsKey("jar_show_dialog") && object.containsKey("jar_password")) {
@@ -151,6 +154,7 @@ public class Jx {
                     Prefers.put("title", object.getString("title"));
                     Prefers.put("picture", object.getString("picture"));
                     Prefers.put("link", object.getString("link"));
+                    Prefers.put("jxUrl", object.getString("jxUrl"));
                     if (object.getInteger("force_refresh") == 1){
                         extMsg = " + 清空本地密码";
                         Prefers.put("storedPWD", "");

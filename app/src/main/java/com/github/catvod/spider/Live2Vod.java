@@ -63,7 +63,7 @@ public class Live2Vod extends Spider {
                     url = split[0];
 //                    diyPic = split.length > 1 ? split[1] : "";
                     // 默认写死图片
-                    diyPic = "https://img2.imgtp.com/2024/03/10/yL3SWeeO.png";
+                    diyPic = "https://lintech.work/static/img/tm.png";
                 }
                 JSONObject typeIdObj = new JSONObject()
                         .put("url", url)
@@ -96,7 +96,7 @@ public class Live2Vod extends Spider {
             JSONObject typeIdObj = new JSONObject()
                     .put("url", url)
                     // 默认写死图片
-                    .put("pic", "https://img2.imgtp.com/2024/03/10/yL3SWeeO.png");
+                    .put("pic", "https://lintech.work/static/img/tm.png");
             JSONObject obj = new JSONObject()
                     .put("type_id", typeIdObj.toString())
                     .put("type_name", name);

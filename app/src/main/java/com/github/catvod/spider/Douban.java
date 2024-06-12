@@ -134,11 +134,13 @@ public class Douban extends Spider {
     }
 
     private String getPic(JSONObject item) {
+        String picUrl;
         try {
-            return item.getJSONObject("pic").optString("normal") + "@Referer=https://api.douban.com/@User-Agent=" + Util.CHROME;
+            picUrl = item.getJSONObject("pic").optString("normal") + "@Referer=https://api.douban.com/@User-Agent=" + Util.CHROME;
         } catch (Exception e) {
-            return "https://img2.imgtp.com/2024/03/10/yL3SWeeO.png";
+            picUrl = "https://lintech.work/static/img/tm.png";
         }
+        return picUrl;
     }
 
     private String getTags(HashMap<String, String> extend) {

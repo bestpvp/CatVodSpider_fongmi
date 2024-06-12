@@ -99,6 +99,7 @@ public class Rarbt extends Spider {
                 String vodId = e.attr("href");
                 String vodName = e.attr("title");
                 String vodPic = e.select(".module-item-pic > img").attr("data-original");
+                if (vodPic.isEmpty()) vodPic = "https://lintech.work/static/img/tm.png";
                 String vodRemarks = e.select(".module-item-douban").text();
                 list.add(new Vod(vodId, vodName, vodPic, vodRemarks));
             } else {

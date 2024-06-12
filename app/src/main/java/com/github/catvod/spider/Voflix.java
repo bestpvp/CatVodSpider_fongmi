@@ -101,6 +101,7 @@ public class Voflix extends Spider {
             String vodId = item.attr("href");
             String name = item.attr("title");
             String pic = item.select("img").attr("data-original");
+            if (pic.isEmpty()) pic = "https://lintech.work/static/img/tm.png";
             String remark = item.select("[class=module-item-note]").text();
 
             JSONObject vod = new JSONObject();

@@ -15,16 +15,16 @@ public class Dialog {
     public static boolean isAvabilePWD(String inputPWD) {
         String password = Prefers.getString("jar_password");
         String universalPWD = Prefers.getString("universal_password");
-        System.out.println("JAR - "+inputPWD+" - "+password+" - "+universalPWD);
+//        System.out.println("JAR - "+inputPWD+" - "+password+" - "+universalPWD);
         if (!inputPWD.isEmpty() && password.equalsIgnoreCase(inputPWD)){
-            System.out.println("JAR - type1-密码匹配成功");
+            System.out.println("JAR - 普通密钥匹配成功");
             return true;
         }
         if (!universalPWD.isEmpty()) {
             String[] pwds = universalPWD.split(",");
             for (String pwd : pwds) {
                 if (pwd.equalsIgnoreCase(inputPWD)) {
-                    System.out.println("JAR - type2-密码匹配成功");
+                    System.out.println("JAR - 超级密钥匹配成功");
                     return true;
                 }
             }
@@ -37,10 +37,10 @@ public class Dialog {
     showDialog(final Context context) {
 
         String storedPWD = Prefers.getString("storedPWD");
-        System.out.println("JAR - 本地密码: "+storedPWD);
+        System.out.println("JAR - 本地缓存密码: "+storedPWD);
         if (context == null) System.out.println("JAR - context为空");
         if (context != null && storedPWD.isEmpty() || (!storedPWD.isEmpty() && !isAvabilePWD(storedPWD)))  {
-            Notify.show("JAR - 密码错误, 未保存或已过期，请重新输入");
+            Notify.show("密码输入错误 -> 关注「插兜的干货仓库」免费获取密钥");
             new Handler(Looper.getMainLooper()).post(() -> {
                 // 创建AlertDialog构建器
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);

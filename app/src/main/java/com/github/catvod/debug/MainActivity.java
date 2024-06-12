@@ -115,9 +115,9 @@ public class MainActivity extends Activity {
 //            spider = new SixV();
 //            spider.init(this, "https://www.66ss.org/");
 
-            String extend = "{\"siteUrl\":\"https://www.rarbt.fun\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
-            spider = new Rarbt();
-            spider.init(this,extend);
+//            String extend = "{\"siteUrl\":\"https://www.rarbt.fun\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
+//            spider = new Rarbt();
+//            spider.init(this,extend);
 
 //            spider = new DyGang();
 //            spider.init(this,"");
@@ -125,9 +125,9 @@ public class MainActivity extends Activity {
 //            spider = new Xunlei8();
 //            spider.init(this,"");
 
-//            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
-//            spider = new Voflix();
-//            spider.init(this, extend);
+            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
+            spider = new Voflix();
+            spider.init(this, extend);
 
 //            spider = new Star();
 //            spider.init(this, "");
