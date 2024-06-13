@@ -1,35 +1,14 @@
 package com.github.catvod.debug;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.catvod.R;
 import com.github.catvod.crawler.Spider;
-import com.github.catvod.spider.AList;
-import com.github.catvod.spider.Ali;
-import com.github.catvod.spider.AppYsV2;
-import com.github.catvod.spider.Dm84;
-import com.github.catvod.spider.DyGang;
-import com.github.catvod.spider.FreeOK;
+import com.github.catvod.spider.Duanjuso;
 import com.github.catvod.spider.Init;
-import com.github.catvod.spider.Jianpian;
-import com.github.catvod.spider.JustLive;
-import com.github.catvod.spider.Kanqiu;
-import com.github.catvod.spider.NiNi;
-import com.github.catvod.spider.Push;
-import com.github.catvod.spider.Rarbt;
-import com.github.catvod.spider.SixV;
-import com.github.catvod.spider.Star;
-import com.github.catvod.spider.Voflix;
-import com.github.catvod.spider.Wogg;
-import com.github.catvod.spider.Douban;
-import com.github.catvod.spider.Live2Vod;
-import com.github.catvod.spider.Xunlei8;
-import com.github.catvod.spider.Ying;
-import com.github.catvod.spider.Ysj;
+import com.github.catvod.spider.QuarkShare;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -125,9 +104,15 @@ public class MainActivity extends Activity {
 //            spider = new Xunlei8();
 //            spider.init(this,"");
 
-            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
-            spider = new Voflix();
-            spider.init(this, extend);
+//            String extend = "{\"siteUrl\":\"https://www.voflix.vip\",\"jxToken\":\"tm://tm/jxToken.txt\",\"enableJX\":false}";
+//            spider = new Voflix();
+//            spider.init(this, extend);
+
+//            spider = new QuarkShare();
+//            spider.init(this,"");
+
+            spider = new Duanjuso();
+            spider.init(this,"");
 
 //            spider = new Star();
 //            spider.init(this, "");
