@@ -104,7 +104,11 @@ public class Jx {
 //                Notify.show("JAR - 内容为空, 请配置: "+ realPath);
                 return "";
             }
-            Prefers.put("jxToken", result);
+            if (tmPath.contains("jxToken")) {
+                Prefers.put("jxToken", result);
+            } else if (tmPath.contains("quark")) {
+                Prefers.put("quark", result);
+            }
             System.out.println("JAR - 读取内容成功: "+ result);
             Notify.show("JAR - 读取内容成功: "+ result);
             return result; // Trim to remove the last newline character

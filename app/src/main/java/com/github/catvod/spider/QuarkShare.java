@@ -12,6 +12,9 @@ import com.github.catvod.bean.Vod;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
 import com.github.catvod.net.OkResult;
+import com.github.catvod.utils.Jx;
+import com.github.catvod.utils.Notify;
+import com.github.catvod.utils.Prefers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
@@ -38,7 +41,7 @@ public static Map<String, JSONObject> shareTokenCache = new HashMap();
     public static Map<String, JSONObject> quarkDownloadingCache = new HashMap();
     public static final String pr = "pr=ucpro&fr=pc";
     public static final String saveDirName = "CatVodOpen";
-    public static final String cookie = "_UP_A4A_11_=wb963112a24a479cbfae7672d7093072; tfstk=faSZt7TKIlEZ6Ugq7Bt2TbuhkkY9DhV5SiOXntXDCCAMCh6c8t6zBK11nI72tsetfhVtmIXR9FOGGhG406-MkNOX1I-VH_7aNuZ5BOKvj7N7Vu-HjcKviotDkvKh5nV7NkZ5BOKvmZt9FV71KBpZScfmmJ8HhBmMncvmtJJvtIxDodDnKK9Wnmvi6sODNDJyS5h0rlwYKLTwZO8-m0SEVFRlIBoDpMJaiQXMTmmXsmJlV9W__0BBXG1yF1Znb_WceZYF0XVyMMWhjZXK_S-Nd1IyjgPZfpte_Uvhq-gJOMR1iG83F08XxgTkjwaL1EtwnhYRJ-36iZXP4h1_9mA1z9fePMGIV3bRTi8kqgriMpYatiQZiqYicpR7LJvh6jGk7RSz7q3vWwpeNRetoqc-jmgNc8uxkFBwLQwTU; _UP_D_=pc; __pus=e657cf8682ee39c12c7df1a16f9b050dAARXW5Uh3dnw6z1PpG0J6YZQELsnL5rL/4cW2Qu3xa8ijgZtHc5E9eHwTrMjfrMRIQpIhweHkOLQOTZyXIYZOQw8; __kp=edcc7360-23d5-11ef-9178-cba46a2863fe; __kps=AARZ+A5Hj/etCmPFm2p4+5r1; __ktd=DcLzDmVfE6OjWh9P9zGzfQ==; __uid=AARZ+A5Hj/etCmPFm2p4+5r1; __puus=ad2bae0cedce9ca1a15c395422797d6dAASM4aoI3hEk7bHc8+Bw+jT2OrIqukUvwONXxCKAwnSgbpu0afWju/Kgg5xYq0JRRGOHr4q7V60pePXtFPMGWqbigeefiG/VH94VUuxRclu0uQWkQAHgDdwTPCvZZJHX/13TksKBRszGzAaSC3shXhb0GGU6atryF7Ncd4bMzjXni5DkhOYBCY832EVAONb7O8fnA4fQQHfjORTL2BHezYY1";
+    public static String cookie = "_UP_A4A_11_=wb963112a24a479cbfae7672d7093072; tfstk=faSZt7TKIlEZ6Ugq7Bt2TbuhkkY9DhV5SiOXntXDCCAMCh6c8t6zBK11nI72tsetfhVtmIXR9FOGGhG406-MkNOX1I-VH_7aNuZ5BOKvj7N7Vu-HjcKviotDkvKh5nV7NkZ5BOKvmZt9FV71KBpZScfmmJ8HhBmMncvmtJJvtIxDodDnKK9Wnmvi6sODNDJyS5h0rlwYKLTwZO8-m0SEVFRlIBoDpMJaiQXMTmmXsmJlV9W__0BBXG1yF1Znb_WceZYF0XVyMMWhjZXK_S-Nd1IyjgPZfpte_Uvhq-gJOMR1iG83F08XxgTkjwaL1EtwnhYRJ-36iZXP4h1_9mA1z9fePMGIV3bRTi8kqgriMpYatiQZiqYicpR7LJvh6jGk7RSz7q3vWwpeNRetoqc-jmgNc8uxkFBwLQwTU; _UP_D_=pc; __pus=e657cf8682ee39c12c7df1a16f9b050dAARXW5Uh3dnw6z1PpG0J6YZQELsnL5rL/4cW2Qu3xa8ijgZtHc5E9eHwTrMjfrMRIQpIhweHkOLQOTZyXIYZOQw8; __kp=edcc7360-23d5-11ef-9178-cba46a2863fe; __kps=AARZ+A5Hj/etCmPFm2p4+5r1; __ktd=DcLzDmVfE6OjWh9P9zGzfQ==; __uid=AARZ+A5Hj/etCmPFm2p4+5r1; __puus=ad2bae0cedce9ca1a15c395422797d6dAASM4aoI3hEk7bHc8+Bw+jT2OrIqukUvwONXxCKAwnSgbpu0afWju/Kgg5xYq0JRRGOHr4q7V60pePXtFPMGWqbigeefiG/VH94VUuxRclu0uQWkQAHgDdwTPCvZZJHX/13TksKBRszGzAaSC3shXhb0GGU6atryF7Ncd4bMzjXni5DkhOYBCY832EVAONb7O8fnA4fQQHfjORTL2BHezYY1";
     public static Object saveDirId = null;
     public static QuarkShare instance = null;
 
@@ -46,7 +49,14 @@ public static Map<String, JSONObject> shareTokenCache = new HashMap();
 
     @Override
     public void init(Context context, String extend) {
-
+        System.out.println("extend: "+extend);
+        if (extend.isEmpty()) Notify.show("Cookie为空, 请设置!");
+        if (extend.startsWith("tm://")) {
+            cookie = Jx.readFileContent(extend);
+        } else {
+            cookie = extend;
+        }
+        System.out.println("cookie: "+cookie);
     }
 
     @Override

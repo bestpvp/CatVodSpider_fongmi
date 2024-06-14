@@ -49,6 +49,7 @@ public class Douban extends Spider {
     @Override
     public String homeContent(boolean filter) throws Exception {
 //        Notify.show(Tag.notifyMsg());
+        Notice.show("https://gitee.com/bestpvp/config/raw/master/config/notice.json");
         List<Class> classes = new ArrayList<>();
         List<String> typeIds = Arrays.asList("hot_gaia", "tv_hot", "show_hot", "movie", "tv", "rank_list_movie", "rank_list_tv");
         List<String> typeNames = Arrays.asList(Tag.categoryMsg(), "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
