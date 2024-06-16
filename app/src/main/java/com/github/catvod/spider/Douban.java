@@ -45,13 +45,13 @@ public class Douban extends Spider {
         Init.checkPermission();
         Jx.initConfig();
         Dialog.showDialog(Init.getActivity());
+//        System.out.println("notice: "+Prefers.getString("notice"));
+        if (!Prefers.getString("notice").isEmpty())  Notice.show(Prefers.getString("notice"));
     }
 
     @Override
     public String homeContent(boolean filter) throws Exception {
 //        Notify.show(Tag.notifyMsg());
-        System.out.println("notice: "+Prefers.getString("notice"));
-        if (!Prefers.getString("notice").isEmpty())  Notice.show(Prefers.getString("notice"));
         List<Class> classes = new ArrayList<>();
         List<String> typeIds = Arrays.asList("hot_gaia", "tv_hot", "show_hot", "movie", "tv", "rank_list_movie", "rank_list_tv");
         List<String> typeNames = Arrays.asList(Tag.categoryMsg(), "热播剧集", "热播综艺", "电影筛选", "电视筛选", "电影榜单", "电视剧榜单");
