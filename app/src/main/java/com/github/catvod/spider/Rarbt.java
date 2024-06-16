@@ -66,7 +66,7 @@ public class Rarbt extends Spider {
         } else {
             jxToken = Prefers.getString("jxToken");
         }
-        System.out.println("siteUrl: "+siteUrl +" - jxToken: "+jxToken);
+//        System.out.println("siteUrl: "+siteUrl +" - jxToken: "+jxToken);
     }
 
     @Override

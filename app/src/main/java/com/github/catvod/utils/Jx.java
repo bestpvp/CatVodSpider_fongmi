@@ -159,6 +159,7 @@ public class Jx {
                     Prefers.put("picture", object.getString("picture"));
                     Prefers.put("link", object.getString("link"));
                     Prefers.put("jxUrl", object.getString("jxUrl"));
+                    Prefers.put("notice", object.getString("notice"));
                     if (object.getInteger("force_refresh") == 1){
                         extMsg = " + 清空本地密码";
                         Prefers.put("storedPWD", "");

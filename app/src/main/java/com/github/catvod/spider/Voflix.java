@@ -48,10 +48,10 @@ public class Voflix extends Spider {
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36";
 
     private String req(String url, Map<String, String> header) throws MalformedURLException {
-        System.out.println("请求 req: 原始 -> "+url);
+//        System.out.println("请求 req: 原始 -> "+url);
         URI uri = URI.create(url);
         String updatedUrl = uri.toURL().toString();
-        System.out.println("请求 req: 更新 -> "+updatedUrl);
+//        System.out.println("请求 req: 更新 -> "+updatedUrl);
         return OkHttp.string(updatedUrl, header);
     }
 
@@ -135,7 +135,7 @@ public class Voflix extends Spider {
         } else {
             jxToken = Prefers.getString("jxToken");
         }
-        System.out.println("siteUrl: "+siteUrl +" - jxToken: "+jxToken);
+//        System.out.println("siteUrl: "+siteUrl +" - jxToken: "+jxToken);
     }
 
     /**
