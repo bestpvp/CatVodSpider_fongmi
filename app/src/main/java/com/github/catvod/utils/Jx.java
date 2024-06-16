@@ -140,36 +140,54 @@ public class Jx {
     public static void initConfig() {
         try {
             String response = OkHttp.string(configUrl, getHeader());
-            com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSONObject.parseObject(response);
-            String last_jar_password = object.getString("jar_password");
-            String current_jar_password = Prefers.getString("jar_password");
-            String last_universal_password = object.getString("universal_password");
-            String current_universal_password = Prefers.getString("universal_password");
+//            String last_jar_password = object.getString("jar_password");
+//            String current_jar_password = Prefers.getString("jar_password");
+//            String last_universal_password = object.getString("universal_password");
+//            String current_universal_password = Prefers.getString("universal_password");
             // 如果当前密码为空，或者当前密码和最新密码不一致，包括超级密钥
-            if (current_jar_password.isEmpty() || !current_jar_password.equalsIgnoreCase(last_jar_password) || !current_universal_password.equalsIgnoreCase(last_universal_password)){
+//            if (current_jar_password.isEmpty() || !current_jar_password.equalsIgnoreCase(last_jar_password) || !current_universal_password.equalsIgnoreCase(last_universal_password)){
+//                String extMsg = "";
+//                if (object.containsKey("jar_show_dialog") && object.containsKey("jar_password")) {
+//                    Prefers.put("force_refresh", object.getInteger("force_refresh"));
+//                    Prefers.put("jar_show_dialog", object.getBoolean("jar_show_dialog"));
+//                    Prefers.put("jar_require_password", object.getBoolean("jar_require_password"));
+//                    Prefers.put("jar_password", object.getString("jar_password"));
+//                    Prefers.put("universal_password", object.getString("universal_password"));
+//                    Prefers.put("jar_message", object.getString("jar_message"));
+//                    Prefers.put("title", object.getString("title"));
+//                    Prefers.put("picture", object.getString("picture"));
+//                    Prefers.put("link", object.getString("link"));
+//                    Prefers.put("jxUrl", object.getString("jxUrl"));
+//                    Prefers.put("notice", object.getString("notice"));
+//                    if (object.getInteger("force_refresh") == 1){
+//                        extMsg = " + 清空本地密码";
+//                        Prefers.put("storedPWD", "");
+//                    }
+//                    System.out.println("JAR - initConfig: 缓存写入成功"+extMsg);
+//                }
+//            } else {
+//                System.out.println("JAR - initConfig: 读取缓存成功");
+//            }
+            if (!response.isEmpty()) {
                 String extMsg = "";
-                if (object.containsKey("jar_show_dialog") && object.containsKey("jar_password")) {
-                    Prefers.put("force_refresh", object.getInteger("force_refresh"));
-                    Prefers.put("jar_show_dialog", object.getBoolean("jar_show_dialog"));
-                    Prefers.put("jar_require_password", object.getBoolean("jar_require_password"));
-                    Prefers.put("jar_password", object.getString("jar_password"));
-                    Prefers.put("universal_password", object.getString("universal_password"));
-                    Prefers.put("jar_message", object.getString("jar_message"));
-                    Prefers.put("title", object.getString("title"));
-                    Prefers.put("picture", object.getString("picture"));
-                    Prefers.put("link", object.getString("link"));
-                    Prefers.put("jxUrl", object.getString("jxUrl"));
-                    Prefers.put("notice", object.getString("notice"));
-                    if (object.getInteger("force_refresh") == 1){
-                        extMsg = " + 清空本地密码";
-                        Prefers.put("storedPWD", "");
-                    }
-                    System.out.println("JAR - initConfig: 缓存写入成功"+extMsg);
+                com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSONObject.parseObject(response);
+                Prefers.put("force_refresh", object.getInteger("force_refresh"));
+                Prefers.put("jar_show_dialog", object.getBoolean("jar_show_dialog"));
+                Prefers.put("jar_require_password", object.getBoolean("jar_require_password"));
+                Prefers.put("jar_password", object.getString("jar_password"));
+                Prefers.put("universal_password", object.getString("universal_password"));
+                Prefers.put("jar_message", object.getString("jar_message"));
+                Prefers.put("title", object.getString("title"));
+                Prefers.put("picture", object.getString("picture"));
+                Prefers.put("link", object.getString("link"));
+                Prefers.put("jxUrl", object.getString("jxUrl"));
+                Prefers.put("notice", object.getString("notice"));
+                if (object.getInteger("force_refresh") == 1){
+                    extMsg = " + 清空本地密码";
+                    Prefers.put("storedPWD", "");
                 }
-            } else {
-                System.out.println("JAR - initConfig: 读取缓存成功");
+                System.out.println("JAR - initConfig: 缓存刷新成功"+extMsg);
             }
-
         } catch (Exception e) {
             System.out.println("JAR - initConfig: 缓存刷新异常: "+e.getMessage());
         }
