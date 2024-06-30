@@ -59,6 +59,7 @@ public class Voflix extends Spider {
         Map<String, String> header = new HashMap<>();
         header.put("User-Agent", userAgent);
         header.put("Referer", siteUrl + "/");
+        header.put("Cookie", "mx_style=white; showBtn=true; _funcdn_token=a25c22e0bbad7808a5519545c0a137a06f9ddcf711b5b7cfa48153bff9dd178d");
         return header;
     }
 
@@ -174,6 +175,7 @@ public class Voflix extends Spider {
     public String homeVideoContent() throws Exception {
         String hotUrl = siteUrl + "/label/new.html";
         String html = req(hotUrl, getHeader());
+        System.out.println(html);
         Elements items = Jsoup.parse(html).select(".module-items").get(0).select(".module-item");
         JSONArray videos = parseVodList(items);
         JSONObject result = new JSONObject();
