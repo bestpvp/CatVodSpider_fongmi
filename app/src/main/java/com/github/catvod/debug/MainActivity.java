@@ -130,8 +130,9 @@ public class MainActivity extends Activity {
 //            spider = new NiNi();
 //            spider.init(this, "");
 
+            String extend = "{\"c\":\"19\",\"year\":\"2024\"}";
             spider = new PTT();
-            spider.init(this, "");
+            spider.init(this, extend);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -175,10 +176,12 @@ public class MainActivity extends Activity {
 //            String tid = "my_dianying";
             // String tid = "1";
             // Logger.t("categoryContent").d(spider.categoryContent(tid, "1", true, new HashMap<>()));
-            HashMap<String, String> extend = new HashMap<>();
-            extend.put("c", "19");
-            extend.put("year", "2024");
-            Logger.t("categoryContent").d(spider.categoryContent("3", "2", true, extend));
+            String tid = "3";
+            String pg = "1";
+//            HashMap<String, String> extend = new HashMap<>();
+//            extend.put("c", "19");
+//            extend.put("year", "2024");
+            Logger.t("categoryContent").d(spider.categoryContent(tid, pg, true, new HashMap<>()));
         } catch (Throwable e) {
             e.printStackTrace();
         }
