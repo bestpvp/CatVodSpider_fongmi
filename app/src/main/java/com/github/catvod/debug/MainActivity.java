@@ -9,6 +9,7 @@ import com.github.catvod.crawler.Spider;
 import com.github.catvod.spider.Douban;
 import com.github.catvod.spider.Duanjuso;
 import com.github.catvod.spider.Init;
+import com.github.catvod.spider.NCat;
 import com.github.catvod.spider.QuarkShare;
 import com.github.catvod.spider.Voflix;
 import com.github.catvod.spider.PTT;
@@ -130,9 +131,14 @@ public class MainActivity extends Activity {
 //            spider = new NiNi();
 //            spider.init(this, "");
 
-            String extend = "{\"c\":\"19\",\"year\":\"2024\"}";
-            spider = new PTT();
-            spider.init(this, extend);
+//            String extend = "{\"c\":\"19\",\"year\":\"2024\"}";
+//            spider = new PTT();
+//            spider.init(this, extend);
+
+            spider = new NCat();
+            spider.init(this, "");
+
+
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -220,7 +226,10 @@ public class MainActivity extends Activity {
             // String s = "23448.html";
             // Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
 
-            String s = "245424";
+//            String s = "245424";
+//            Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
+
+            String s = "242227.html";
             Logger.t("detailContent").d(spider.detailContent(Arrays.asList(s)));
         } catch (Throwable e) {
             e.printStackTrace();

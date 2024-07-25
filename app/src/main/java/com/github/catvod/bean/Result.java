@@ -30,8 +30,6 @@ public class Result {
     private String format;
     @SerializedName("danmaku")
     private String danmaku;
-    @SerializedName("click")
-    private String click;
     @SerializedName("msg")
     private String msg;
     @SerializedName("url")
@@ -50,6 +48,7 @@ public class Result {
     private Integer limit;
     @SerializedName("total")
     private Integer total;
+    private String click;
 
     public static Result objectFrom(String str) {
         return new Gson().fromJson(str, Result.class);
@@ -61,6 +60,10 @@ public class Result {
 
     public static String string(List<Class> classes, List<Vod> list, JSONObject filters) {
         return Result.get().classes(classes).vod(list).filters(filters).string();
+    }
+
+    public static String string(Integer page,Integer pagecount,Integer limit,Integer total,List<Vod> list){
+        return Result.get().page(page,pagecount,limit,total).vod(list).string();
     }
 
     public static String string(List<Class> classes, List<Vod> list, JsonElement filters) {
