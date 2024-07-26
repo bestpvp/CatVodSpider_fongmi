@@ -1,15 +1,13 @@
 package com.github.catvod.spider;
 
+import android.util.Base64;
+
 import com.github.catvod.bean.Class;
 import com.github.catvod.bean.Result;
 import com.github.catvod.bean.Vod;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Util;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,21 +15,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URLEncoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NCat extends Spider {
+public class TvDy extends Spider {
 
-    private static final String siteUrl = "https://www.ncat3.com:51111";
-    private static final String picUrl = "https://61.147.93.252:15002";
-    private static final String cateUrl = siteUrl + "/show/";
-    private static final String detailUrl = siteUrl + "/detail/";
-    private static final String searchUrl = siteUrl + "/search?k=";
+    private static final String siteUrl = "https://www.tvdy.xyz";
+    private static final String cateUrl = siteUrl + "/search.php?tid=";
+    private static final String detailUrl = siteUrl + "/movie/";
+    private static final String searchUrl = siteUrl + "/search.php?searchword=";
     private static final String playUrl = siteUrl + "/play/";
 
     private HashMap<String, String> getHeaders() {
@@ -44,19 +39,19 @@ public class NCat extends Spider {
     public String homeContent(boolean filter) throws Exception {
         List<Vod> list = new ArrayList<>();
         List<Class> classes = new ArrayList<>();
-        String[] typeIdList = {"1", "2", "3", "4", "6"};
-        String[] typeNameList = {"电影", "连续剧", "动漫", "综艺", "短剧"};
+        String[] typeIdList = {"1", "2", "3", "4", "5", "34"};
+        String[] typeNameList = {"电影", "电视剧", "综艺", "动漫", "福利", "纪录片"};
         for (int i = 0; i < typeNameList.length; i++) {
             classes.add(new Class(typeIdList[i], typeNameList[i]));
         }
         Document doc = Jsoup.parse(OkHttp.string(siteUrl, getHeaders()));
-        for (Element element : doc.select("div.module-item")) {
+        for (Element element : doc.select("div.stui-vodlist__box a")) {
             try {
-                String pic = element.select("img").attr("data-original");
-                String url = element.select("a").attr("href");
-                String name = element.select("img").attr("title");
+                String pic = element.attr("data-original");
+                String url = element.attr("href");
+                String name = element.attr("title");
                 if (!pic.startsWith("http")) {
-                    pic = picUrl + pic;
+                    pic = siteUrl + pic;
                 }
                 String id = url.split("/")[2];
                 list.add(new Vod(id, name, pic));
@@ -70,15 +65,15 @@ public class NCat extends Spider {
     @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) throws Exception {
         List<Vod> list = new ArrayList<>();
-        String target = cateUrl + tid + "-----3-" + pg + ".html";
+        String target = cateUrl + tid + "&searchtype=5&order=commend&page=" + pg;
         Document doc = Jsoup.parse(OkHttp.string(target, getHeaders()));
-        for (Element element : doc.select("div.module-item")) {
+        for (Element element : doc.select("div.stui-vodlist__box a")) {
             try {
-                String pic = element.select("img").attr("data-original");
-                String url = element.select("a").attr("href");
-                String name = element.select("img").attr("title");
+                String pic = element.attr("data-original");
+                String url = element.attr("href");
+                String name = element.attr("title");
                 if (!pic.startsWith("http")) {
-                    pic = picUrl + pic;
+                    pic = siteUrl + pic;
                 }
                 String id = url.split("/")[2];
                 list.add(new Vod(id, name, pic));
@@ -93,14 +88,14 @@ public class NCat extends Spider {
     @Override
     public String detailContent(List<String> ids) throws Exception {
         Document doc = Jsoup.parse(OkHttp.string(detailUrl.concat(ids.get(0)), getHeaders()));
-        String name = doc.select("div.detail-title strong").text();
-        String pic = doc.select(".detail-pic img").attr("data-original");
-        String year = doc.select("a.detail-tags-item").get(0).text();
-        String desc = doc.select("div.detail-desc p").text();
+        String name = doc.select("h1.title").text();
+        String pic = doc.select("a.pic img").attr("data-original");
+        String year = doc.select("p.data").get(4).text().replace("年份：","");
+        String desc = doc.select("span.detail-content").text();
 
         // 播放源
-        Elements tabs = doc.select("a.source-item span");
-        Elements list = doc.select("div.episode-list");
+        Elements tabs = doc.select("div.stui-vodlist__head h4");
+        Elements list = doc.select("div.stui-vodlist__head ul");
         String PlayFrom = "";
         String PlayUrl = "";
         for (int i = 0; i < tabs.size(); i++) {
@@ -128,7 +123,7 @@ public class NCat extends Spider {
 
         Vod vod = new Vod();
         vod.setVodId(ids.get(0));
-        vod.setVodPic(picUrl + pic);
+        vod.setVodPic(siteUrl + pic);
         vod.setVodYear(year);
         vod.setVodName(name);
         vod.setVodContent(desc);
@@ -140,18 +135,19 @@ public class NCat extends Spider {
     @Override
     public String searchContent(String key, boolean quick) throws Exception {
         List<Vod> list = new ArrayList<>();
-        Document doc = Jsoup.parse(OkHttp.string(searchUrl.concat(URLEncoder.encode(key)).concat(".html"), getHeaders()));
-        for (Element element : doc.select("a.search-result-item")) {
+        Document doc = Jsoup.parse(OkHttp.string(searchUrl.concat(URLEncoder.encode(key)), getHeaders()));
+        for (Element element : doc.select("div.stui-vodlist__box a")) {
             try {
-                String pic = element.select("img").attr("data-original");
+                String pic = element.attr("data-original");
                 String url = element.attr("href");
-                String name = element.select("img").attr("title");
+                String name = element.attr("title");
                 if (!pic.startsWith("http")) {
-                    pic = picUrl + pic;
+                    pic = siteUrl + pic;
                 }
                 String id = url.split("/")[2];
                 list.add(new Vod(id, name, pic));
             } catch (Exception e) {
+
             }
         }
         return Result.string(list);
@@ -160,15 +156,18 @@ public class NCat extends Spider {
     @Override
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
         Document doc = Jsoup.parse(OkHttp.string(playUrl.concat(id), getHeaders()));
-        String regex = "src: \"(.*?)m3u8\",";
+        String regex = "var now=base64decode(.*?);var";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(doc.html());
-        String url = "";
+        String url = doc.html();
         if (matcher.find()) {
-            url = matcher.group(1);
-            url = url.replace("\\/", "/") + "m3u8";
+            url = decodeBase64(matcher.group(1).replace("(\\\"","").replace("\\\")",""));
         }
         return Result.get().url(url).header(getHeaders()).string();
+    }
+
+    public static String decodeBase64(String encodedString) {
+        return new String(Base64.decode(encodedString, Base64.DEFAULT));
     }
 }
