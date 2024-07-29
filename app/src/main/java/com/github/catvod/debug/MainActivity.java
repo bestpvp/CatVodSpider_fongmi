@@ -11,6 +11,7 @@ import com.github.catvod.spider.Duanjuso;
 import com.github.catvod.spider.Init;
 import com.github.catvod.spider.NCat;
 import com.github.catvod.spider.QuarkShare;
+import com.github.catvod.spider.TvDy;
 import com.github.catvod.spider.Voflix;
 import com.github.catvod.spider.PTT;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -135,8 +136,11 @@ public class MainActivity extends Activity {
 //            spider = new PTT();
 //            spider.init(this, extend);
 
-            spider = new NCat();
-            spider.init(this, "");
+//            spider = new NCat();
+//            spider.init(this, "");
+
+            spider = new TvDy();
+            spider.init(this,"");
 
 
         } catch (Throwable e) {
