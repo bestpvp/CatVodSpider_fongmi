@@ -45,7 +45,7 @@ public class TvDy extends Spider {
             classes.add(new Class(typeIdList[i], typeNameList[i]));
         }
         Document doc = Jsoup.parse(OkHttp.string(siteUrl, getHeaders()));
-        for (Element element : doc.select("div.stui-vodlist__box a")) {
+        for (Element element : doc.select("div.stui-vodlist__box a.stui-vodlist__thumb.lazyload")) {
             try {
                 String pic = element.attr("data-original");
                 String url = element.attr("href");
