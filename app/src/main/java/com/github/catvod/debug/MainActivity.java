@@ -8,6 +8,7 @@ import com.github.catvod.R;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.spider.Douban;
 import com.github.catvod.spider.Duanjuso;
+import com.github.catvod.spider.HkTv;
 import com.github.catvod.spider.Init;
 import com.github.catvod.spider.NCat;
 import com.github.catvod.spider.QuarkShare;
@@ -141,6 +142,9 @@ public class MainActivity extends Activity {
 
             spider = new TvDy();
             spider.init(this,"");
+
+//            spider = new HkTv();
+//            spider.init(this,"");
 
 
         } catch (Throwable e) {
